@@ -1,10 +1,8 @@
 package sparkBasic
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.implicits._
 
 object CommentsMDS extends App {
-    case class Pair(pair: Array[String], number: Int)
 
     val spark = SparkSession
                 .builder
@@ -12,6 +10,9 @@ object CommentsMDS extends App {
                 .config("spark.mongodb.input.uri", "mongodb://10.120.37.108/project.comments")
                 .config("spark.mongodb.output.uri", "mongodb://10.120.37.108/project.comments")
                 .getOrCreate()
+
+    import spark.implicits._
+    case class Pair(pair: Array[String], number: Int)
 
     val df = spark.read.format("com.mongodb.spark.sql.DefaultSource").option("uri","mongodb://10.120.37.108/project.comments").load()
     val table = df.select($"person_id", $"politician_id")

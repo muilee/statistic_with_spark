@@ -1,14 +1,18 @@
 package sparkBasic
 
-import org.apache.spark.implicits._
+import org.apache.spark.sql.SparkSession
+
 object ReactionsMDS extends App {
-    case class Pair(pair: Array[String], number: Int)
+
     val spark = SparkSession
         .builder
         .appName("myApp")
         .config("spark.mongodb.input.uri", "mongodb://10.120.37.108/project.reactions")
         .config("spark.mongodb.output.uri", "mongodb://10.120.37.108/project.reactions")
         .getOrCreate()
+
+    import spark.implicits._
+    case class Pair(pair: Array[String], number: Int)
 
     val df = spark.read.format("com.mongodb.spark.sql.DefaultSource").option("uri","mongodb://10.120.37.108/project.reactions").load()
     val table = df.select($"person_id", $"post_id")
