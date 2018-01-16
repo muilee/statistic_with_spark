@@ -1,0 +1,7 @@
+./bin/spark-shell --conf "spark.mongodb.input.uri=mongodb://10.120.37.108/project.comments?readPreference=primaryPreferred" \
+                  --conf "spark.mongodb.output.uri=mongodb://10.120.37.108/project.comments" \
+                  --packages org.mongodb.spark:mongo-spark-connector_2.11:2.2.0
+
+
+
+val schema = new StructType().add(StructField("politician_id", StringType, true)).add(StructField("created_time", TimestampType, true)).add(StructField("daily_numbers", IntegerType, true))
