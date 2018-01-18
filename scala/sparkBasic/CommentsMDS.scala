@@ -12,6 +12,7 @@ object CommentsMDS extends App {
                 .getOrCreate()
 
     import spark.implicits._
+    
     case class Pair(pair: Array[String], number: Int)
 
     val df = spark.read.format("com.mongodb.spark.sql.DefaultSource").option("uri","mongodb://10.120.37.108/project.comments").load()
