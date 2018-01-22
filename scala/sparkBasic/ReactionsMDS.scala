@@ -29,6 +29,6 @@ object ReactionsMDS extends App {
     val temp9 = temp8.map(x => Pair(Array(x._1._1.asInstanceOf[String], x._1._2.asInstanceOf[String]), 1))
 
     val df2 = temp9.toDF()
-    df2.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").option("database","fb_cleaned").option("collection", "reactions_pair").save()
+    df2.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").option("uri","mongodb://10.120.37.108/temp.reactions_pair").save()
 
 }
