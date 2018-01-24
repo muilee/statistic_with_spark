@@ -26,7 +26,7 @@ object ReactionsMDS extends App {
     val temp6 = temp5.map(x => (x, 1))
     val temp7 = temp6.reduceByKey((x, y) => x + y).cache()
     val temp8 = temp7.sortBy(x => x._2, false)
-    val temp9 = temp8.map(x => Pair(Array(x._1._1.asInstanceOf[String], x._1._2.asInstanceOf[String]), 1))
+    val temp9 = temp8.map(x => Pair(Array(x._1._1.asInstanceOf[String], x._1._2.asInstanceOf[String]), x._2))
 
     val df2 = temp9.toDF()
     df2.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").option("uri","mongodb://10.120.37.108/temp.reactions_pair").save()
