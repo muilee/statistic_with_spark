@@ -23,7 +23,7 @@ object CommentsMDS extends App {
     val temp3 = temp2.filter(x => x._2.size > 1)
     val temp4 = temp3.map(x => x._2.toList.sorted)
     val temp5 = temp4.flatMap(x => x.combinations(2).toList)
-    val temp6 = temp5.map(x => (x(0), x(1))).map(x => (x, 1))
+    val temp6 = temp5.map(x => (x, 1))
     val temp7 = temp6.reduceByKey((x, y) => x + y).cache()
     val temp8 = temp7.sortBy(x => x._2, false)
     val temp9 = temp8.map(x => Pair(Array(x._1._1.asInstanceOf[String], x._1._2.asInstanceOf[String]), 1))
